@@ -40,15 +40,15 @@ blog-app/
 
 ## Features
 
-✅ Article creation with dedicated form
-✅ Article viewing on home page
-✅ Article modification and deletion
-✅ Responsive and modern interface
-✅ Deletion animations
-✅ Gmail-style information toasts
-✅ Smart date display
-✅ Protection of articles being edited
-✅ Automatic reset after inactivity
+- ✅ Article creation with dedicated form
+- ✅ Article viewing on home page
+- ✅ Article modification and deletion
+- ✅ Responsive and modern interface
+- ✅ Deletion animations
+- ✅ Gmail-style information toasts
+- ✅ Smart date display
+- ✅ Protection of articles being edited
+- ✅ Automatic reset after inactivity
 
 ## Developpement
 
