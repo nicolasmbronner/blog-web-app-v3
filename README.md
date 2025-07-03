@@ -41,7 +41,7 @@ blog-app/
 ## Features
 
 - ✅ Article creation with dedicated form
-- ✅ Article viewing on home page
+- ✅ Articles list on home page
 - ✅ Article modification and deletion
 - ✅ Responsive and modern interface
 - ✅ Deletion animations
