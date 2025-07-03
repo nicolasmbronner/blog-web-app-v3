@@ -17,7 +17,7 @@ A modern blog web app built using Node.js, Express.js and EJS.
  DELETE /articles/:id       -> delete article
 ```
 
-## Structure du projet
+## Project Structure
 
 ```
 blog-app/
