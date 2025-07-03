@@ -111,7 +111,7 @@ Fix any bugs or issues that arose during testing.
 ## Pragmatic Development
 
 1. **No Broken Windows**: No software rot. Comment code well to find my way around even after 6 months away.
-2. **Good Enough Quality**: Unlike versions 1 and 2, aim for a "passable" version (we could say "harmonious" or "balanced"), but not perfect.
+2. **Good Enough Quality**: Unlike versions 1 and 2, aim for a "good enough" version (we could say "harmonious" or "balanced"), but not perfect.
 
 ## Considerations for Project Originality
 
