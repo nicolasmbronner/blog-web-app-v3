@@ -9,12 +9,11 @@ A modern blog web app built using Node.js, Express.js and EJS.
  GET /articles/:id          -> read article
  GET /form/new              -> new article form
  GET /form/:id              -> edit article form
- GET /articles/:id/status   -> check article status
  
  POST /articles             -> create article
  POST /articles/:id         -> update article
  
- DELETE /articles/:id       -> delete article
+ DELETE /articles/:id       -> delete article if status is not locked
 ```
 
 ## Project Structure
