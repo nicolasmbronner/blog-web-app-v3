@@ -23,14 +23,14 @@ blog-app/
 ├── index.js              # Main Express Server
 ├── package.json          # Configuration npm
 ├── README.md             # Documentation
-├── static/               # Static files
-│   ├── css/
+├── public/               # Static files
+│   ├── styles/
 │   │   └── styles.css    # Styles CSS
-│   └── js/
-│       └── main.js       # Client side JavaScript
+│   └── main.js       # Client side JavaScript
 └── views/                # EJS Templates
-    ├── header.ejs        # Shared header
-    ├── footer.ejs        # Shared footer
+    ├── partials
+    │   ├── header.ejs    # Shared header
+    │   └── footer.ejs    # Shared footer
     ├── index.ejs         # Index blog page
     ├── article.ejs       # Article reading
     ├── form.ejs          # Creation / Edition form
