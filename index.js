@@ -15,11 +15,17 @@
 
 // IMPORTS------------------------------------------------
 import express from 'express';
+import bodyParser from 'body-parser';
+import { staticArticles, articles } from './articleStorage.js';
+
+// CONFIG------------------------------------------------
 const app = express();
 const port = 3000;
 
-// Static files
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// TODO: article management in articleManager.js: RESET: `articles = [ ...staticArticles ];`
 
 
 // ROUTES------------------------------------------------
