@@ -20,8 +20,8 @@ A modern blog web app built using Node.js, Express.js and EJS.
 
 ```
 blog-app/
+├── articles.js           # Articles storage and management
 ├── index.js              # Main Express Server
-├── package.json          # Configuration npm
 ├── README.md             # Documentation
 ├── public/               # Static files
 │   ├── styles/

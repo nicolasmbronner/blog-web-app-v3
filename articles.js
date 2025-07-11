@@ -24,4 +24,19 @@ const staticArticles = [
 
 let articles = [ ];
 
-export { staticArticles, articles }
+export function getArticles() {
+    return articles;
+}
+
+export function resetBlog() {
+    articles = [...staticArticles];
+    console.log('Blog reset!');
+}
+
+export function createArticle(title, content) {
+
+}
+
+export function deleteArticle(id) {
+    
+}

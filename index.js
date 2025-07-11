@@ -16,7 +16,7 @@
 // IMPORTS------------------------------------------------
 import express from 'express';
 import bodyParser from 'body-parser';
-import { staticArticles, articles } from './articleStorage.js';
+import { resetBlog, getArticles } from './articles.js';
 
 // CONFIG------------------------------------------------
 const app = express();
@@ -25,19 +25,24 @@ const port = 3000;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// TODO: article management in articleManager.js: RESET: `articles = [ ...staticArticles ];`
 
+resetBlog();
 
 // ROUTES------------------------------------------------
 // Index page
 app.get('/', (req, res) => {
-    res.render('index.ejs');
+    const articles = getArticles();
+    res.render('index.ejs', { articlesIndex: articles });
     // TODO: nice list of articles
 });
 
 // Read article
 app.get('/articles/:id', (req, res) => {
-    res.render('article.ejs');
+    if (req.params.id == '5') {
+        res.render('404.ejs');
+    } else {
+        res.render('article.ejs');
+    }
     // TODO: create condition for 404 page
     // TODO: pass article id and variables values to page
 });

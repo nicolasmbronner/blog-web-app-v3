@@ -4,7 +4,11 @@
     <h1>Mindfulness Blog</h1>
 
     <% if (locals.articlesIndex) { %>
-        <!-- TODO: display articles list. Date on the left, article name on the right -->
+        <ul>
+            <% for (let article of locals.articlesIndex) { %>
+                <li><%= article.date %>  <a href="/articles/<%= article.id %>"><%= article.title %></a></li>
+            <% } %>
+        </ul>
     <% } else { %> <!-- if (locals.articlesIndex) -->
         <p>No articles yet 🥸</p>
     <% } %> <!-- else -->
