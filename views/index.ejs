@@ -11,7 +11,6 @@
                         <%= article.date %>
                         <a href="/articles/<%= article.id %>"><%= article.title %></a>
                         <div class="article-actions">
-                            <!-- TODO: Condition of buttons display, depending of article status (locked/unlocked) -->
                             <button class="btn btn-edit" data-action="edit" data-id="<%= article.id %>">✏️</button>
                             <button class="btn btn-delete" data-action="delete" data-id="<%= article.id %>">🗑️</button>
                         </div>
