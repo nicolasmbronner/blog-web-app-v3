@@ -16,7 +16,7 @@
 // IMPORTS------------------------------------------------
 import express from 'express';
 import bodyParser from 'body-parser';
-import { resetBlog, getArticles } from './articles.js';
+import { resetBlog, getArticles, getArticleById } from './articles.js';
 
 // CONFIG------------------------------------------------
 const app = express();
@@ -38,13 +38,15 @@ app.get('/', (req, res) => {
 
 // Read article
 app.get('/articles/:id', (req, res) => {
-    if (req.params.id == '5') {
+    const article = getArticleById(req.params.id);
+
+    if (!article) {
+        // Article not found -> 404 page
         res.render('404.ejs');
     } else {
-        res.render('article.ejs');
+        // Article found, render it
+        res.render('article.ejs', { article: article });
     }
-    // TODO: create condition for 404 page
-    // TODO: pass article id and variables values to page
 });
 
 // New article form

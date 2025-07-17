@@ -1,4 +1,7 @@
-<%- include('partials/header.ejs', { title: 'Home' }) %>
+<%- include('partials/header.ejs', { 
+    title: 'Home',
+    buttons: ['new']
+}) %>
 
 <main>
     <h1>Mindfulness Blog</h1>
@@ -11,7 +14,7 @@
                         <%= article.date %>
                         <a href="/articles/<%= article.id %>"><%= article.title %></a>
                         <div class="article-actions">
-                            <button class="btn btn-edit" data-action="edit" data-id="<%= article.id %>">✏️</button>
+                            <a href="/form/<%= article.id %>" class="btn btn-edit">✏️</a>
                             <button class="btn btn-delete" data-action="delete" data-id="<%= article.id %>">🗑️</button>
                         </div>
                     </div>

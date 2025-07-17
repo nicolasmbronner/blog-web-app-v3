@@ -10,3 +10,26 @@
 
 
     <body>
+        <!-- Navigation bar -->
+        <nav class="nav-bar">
+            <% 
+            const navButtons = buttons || ['back']; // Default: just a back button
+            const articleId = locals.articleId || null; // For edit and delete buttons
+            %>
+
+            <% if (navButtons.includes('back')) { %>
+                <a href="/" class="btn btn-back">👈</a>
+            <% } %>
+
+            <% if (navButtons.includes('edit') && articleId) { %>
+                <a href="/form/<%= articleId %>" class="btn btn-edit">✏️</a>
+            <% } %>
+
+            <% if (navButtons.includes('delete') && articleId) { %>
+                <button class="btn btn-delete" data-action="delete" data-id="<%= articleId %>">🗑️</button>
+            <% } %>
+
+            <% if (navButtons.includes('new')) { %>
+                <a href="/form/new" class="btn btn-new">➕</a>
+            <% } %>
+        </nav>

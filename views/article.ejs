@@ -1,11 +1,19 @@
-<%- include('partials/header.ejs', { title: 'Home' }) %>
+<%- include('partials/header.ejs', {
+    title: 'Article - ' + (article.title || 'Reading'),
+    buttons: ['back', 'edit', 'delete'],
+    articleId: article.id
+}) %>
 
 <main>
-    <h1>Article Reading</h1>
-
-    <p>
-        This is an article page.
-    </p>
+    <article class="article-content">
+        <h1><%= article.title %></h1>
+        <div class="article-meta">
+            <span class="date"><%= article.date %></span>
+        </div>
+        <div class="article-body">
+            <%= article.content %>
+        </div>
+    </article>
 </main>
 
 <%- include('partials/footer.ejs') %>

@@ -33,6 +33,10 @@ export function resetBlog() {
     console.log('Blog reset!');
 }
 
+export function getArticleById(id) {
+    return articles.find(article => article.id === parseInt(id));
+}
+
 export function createArticle(title, content) {
 
 }
