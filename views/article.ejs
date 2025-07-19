@@ -1,15 +1,19 @@
 <%- include('partials/header.ejs', {
     title: 'Article - ' + (article.title || 'Reading'),
-    buttons: ['back', 'edit', 'delete'],
+    buttons: ['back', 'edit', 'delete', 'theme'],
     articleId: article.id
 }) %>
 
 <main>
+    <!-- Each article displays its title, date and content -->
     <article class="article-content">
+
         <h1><%= article.title %></h1>
+
         <div class="article-meta">
             <span class="date"><%= article.date %></span>
         </div>
+
         <div class="article-body">
             <%= article.content %>
         </div>

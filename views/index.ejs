@@ -1,18 +1,21 @@
 <%- include('partials/header.ejs', { 
     title: 'Home',
-    buttons: ['new']
+    buttons: ['new', 'theme']
 }) %>
 
 <main>
     <h1>Mindfulness Blog</h1>
 
     <% if (locals.articlesIndex) { %>
+        <!-- Articles list -->
         <ul>
             <% for (let article of locals.articlesIndex) { %>
                 <li class="article-item">
                     <div class="article-presentation">
                         <%= article.date %>
                         <a href="/articles/<%= article.id %>"><%= article.title %></a>
+
+                        <!-- Article actions (edit and delete) -->
                         <div class="article-actions">
                             <a href="/form/<%= article.id %>" class="btn btn-edit">✏️</a>
                             <button class="btn btn-delete" data-action="delete" data-id="<%= article.id %>">🗑️</button>
@@ -21,9 +24,10 @@
                 </li>
             <% } %>
         </ul>
-    <% } else { %> <!-- if (locals.articlesIndex) -->
+
+    <% } else { %> <!-- if NOT (locals.articlesIndex) -->
         <p>No articles yet 🥸</p>
-    <% } %> <!-- else -->
+    <% } %> <!-- end of else -->
 
 </main>
 

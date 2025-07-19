@@ -1,3 +1,25 @@
+/* CSS DIRECTORY
+    1. =GLOBAL SETTINGS
+    2. =PRIMARY LAYOUT STRUCTURE
+    3. =SECONDARY LAYOUT STRUCTURE
+    4. =TERTIARY LAYOUT STRUCTURE
+    5. =TEXT-RELATED TREATMENTS
+    6. =IMAGES, LINKS, AND OTHER SALIENT EATURES
+    7. =GENERAL STYLES
+    8. =GENERAL CLASSES
+    9. =MISCELLANEOUS STUFF
+*/
+
+/* ===GLOBAL SETTINGS=== (resets, scrollbars, etc.) */
+/* ===PRIMARY LAYOUT STRUCTURE=== (body, primary divs) */
+/* ===SECONDARY LAYOUT STRUCTURE=== (header, footer, sidebar) */
+/* ===TERTIARY LAYOUT STRUCTURE=== (page regions, floats) */
+/* ===TEXT-RELATED TREATMENTS=== (headings, paragraphs, lists) */
+/* ===IMAGES, LINKS, AND OTHER SALIENT EATURES=== (pre, code) */
+/* ===GENERAL STYLES=== (forms, tables, buttons, acronyms et al) */
+/* ===GENERAL CLASSES=== (.clear, .center, .right, .left, etc.) */
+/* ===MISCELLANEOUS STUFF AND TEMPLATE CODE=== */
+
 body {
     background-color: #141518;
     color: #ffffff;;

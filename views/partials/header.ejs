@@ -10,7 +10,6 @@
 
 
     <body>
-        <!-- Navigation bar -->
         <nav class="nav-bar">
             <% 
             const navButtons = buttons || ['back']; // Default: just a back button
@@ -18,18 +17,26 @@
             %>
 
             <% if (navButtons.includes('back')) { %>
-                <a href="/" class="btn btn-back">👈</a>
+                <a href="/" class="btn left btn-back">👈</a>
             <% } %>
 
             <% if (navButtons.includes('edit') && articleId) { %>
-                <a href="/form/<%= articleId %>" class="btn btn-edit">✏️</a>
+                <a href="/form/<%= articleId %>" class="btn left btn-edit">✏️</a>
             <% } %>
 
             <% if (navButtons.includes('delete') && articleId) { %>
-                <button class="btn btn-delete" data-action="delete" data-id="<%= articleId %>">🗑️</button>
+                <button class="btn right btn-delete" data-action="delete" data-id="<%= articleId %>">🗑️</button>
             <% } %>
 
             <% if (navButtons.includes('new')) { %>
-                <a href="/form/new" class="btn btn-new">➕</a>
+                <a href="/form/new" class="btn right btn-new">➕</a>
+            <% } %>
+
+            <% if (navButtons.includes('post')) { %>
+                <button class="btn right btn-post" data-action="post">✔️</button>
+            <% } %>
+
+            <% if (navButtons.includes('theme')) { %>
+                <button class="btn right btn-theme" data-action="theme">🌙</button>
             <% } %>
         </nav>
