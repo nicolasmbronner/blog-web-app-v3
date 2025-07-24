@@ -53,3 +53,6 @@ export function createArticle(title, content) {
 export function deleteArticle(id) {
     
 }
+
+// Test to delete
+console.log(Hello, workd!);
