@@ -53,3 +53,9 @@ export function createArticle(title, content) {
 export function deleteArticle(id) {
     
 }
+
+// === TEST FUNCTION - À SUPPRIMER APRÈS TEST GITHUB WORKFLOW ===
+export function testBranchFunction() {
+    console.log('🧪 Test branch workflow - cette fonction sera supprimée après le merge');
+    return 'Test réussi !';
+}
