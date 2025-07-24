@@ -1,4 +1,3 @@
-// Default articles, used to reset the blog
 const staticArticles = [
     {
         id: 1,
@@ -23,28 +22,20 @@ const staticArticles = [
     }
 ]
 
-// List of articles, take from staticArticles when app starts/reset
 let articles = [ ];
 
-
-// === GETTERS ===
 export function getArticles() {
     return articles;
 }
 
-export function getArticleById(id) {
-    return articles.find(article => article.id === parseInt(id));
-}
-
-
-// === SETTER ===
 export function resetBlog() {
     articles = [...staticArticles];
     console.log('Blog reset!');
 }
 
-
-// === ARTICLES ACTIONS ===
+export function getArticleById(id) {
+    return articles.find(article => article.id === parseInt(id));
+}
 
 export function createArticle(title, content) {
 
