@@ -52,11 +52,4 @@ export function createArticle(title, content) {
 
 export function deleteArticle(id) {
     
-<<<<<<< HEAD
 }
-
-// Test to delete
-console.log("Hello, workd!");
-=======
-}
->>>>>>> parent of c985860 (test: add few lines of code to test a branch switch)
