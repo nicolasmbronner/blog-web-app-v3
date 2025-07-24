@@ -1,28 +1,6 @@
-// ============================================
-// IMPORTS
-// ============================================
-import express from 'express';
-import bodyParser from 'body-parser';
-import { resetBlog, getArticles, getArticleById } from './articles.js';
-
-
-// ============================================
-// CONFIG
-// ============================================
-const app = express();
-const port = 3000;
-
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-
-resetBlog();
-
-
-// ============================================
-// ROUTES
-// ============================================
-
 /**
+ * ROUTES--------------------------------------------
+ * 
  * GET /                      -> index page
  * GET /articles/:id          -> read article
  * GET /form/new              -> new article form
@@ -35,64 +13,74 @@ resetBlog();
  */
 
 
-// INDEX PAGE ─────────────────────────────────
-app.get('/', (_req, res) => {
+// IMPORTS------------------------------------------------
+import express from 'express';
+import bodyParser from 'body-parser';
+import { resetBlog, getArticles, getArticleById } from './articles.js';
+
+// CONFIG------------------------------------------------
+const app = express();
+const port = 3000;
+
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+resetBlog();
+
+// ROUTES------------------------------------------------
+// Index page
+app.get('/', (req, res) => {
     const articles = getArticles();
     res.render('index.ejs', { articlesIndex: articles });
-    // TODO: date formatter
+    // TODO: nice list of articles
 });
 
-
-// READ ARTICLE ───────────────────────────────
+// Read article
 app.get('/articles/:id', (req, res) => {
     const article = getArticleById(req.params.id);
 
     if (!article) {
+        // Article not found -> 404 page
         res.render('404.ejs');
     } else {
-        // article.ejs needs article.title, article.date and article.content
+        // Article found, render it
         res.render('article.ejs', { article: article });
     }
 });
 
-
-// NEW ARTICLE FORM ───────────────────────────
+// New article form
 app.get('/form/new', (req, res) => {
     res.render('form.ejs');
-    // TODO: create form. if editing, pass article title and content
+    // TODO: create form
+    // TODO: collect form data from article object variable for editing
 });
 
-
-// EDIT ARTICLE FORM ──────────────────────────
+// Edit article form
 app.get('/form/:id', (req, res) => {
     res.render('form.ejs');
     // TODO: pass article id to form
 });
 
-
-// TODO: CREATE ARTICLE ─────────────────────────────
+// Create article
 app.post('/articles', (req, res) => {
-    // include the id of the new article
     res.send('Article created');
+    // include the id of the new article
 });
 
-
-// TODO: UPDATE ARTICLE ─────────────────────────────
+// Update article
 app.post('/articles/:id', (req, res) => {
     res.send('Article updated');
 });
 
-
-// TODO: DELETE ARTICLE ─────────────────────────────
+// Delete article > Check article status before deleting
 app.delete('/articles/:id', (req, res) => {
     // if article status is not locked, delete it
     res.send('Article deleted');
 })
 
 
-// ============================================
-// START SERVER
-// ============================================
+// Start server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 })
