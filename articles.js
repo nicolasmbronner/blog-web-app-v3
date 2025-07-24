@@ -55,4 +55,4 @@ export function deleteArticle(id) {
 }
 
 // Test to delete
-console.log(Hello, workd!);
+console.log("Hello, workd!");
