@@ -50,8 +50,9 @@ app.get('/articles/:id', (req, res) => {
 // New article form
 app.get('/form/new', (req, res) => {
 
-    res.render('form.ejs');
-    // TODO: form require article ID
+    res.render('form.ejs', {
+        article: { id: null, title: '', content: '' }
+    });
 });
 
 // Edit article form
