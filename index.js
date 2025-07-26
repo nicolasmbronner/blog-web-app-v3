@@ -51,6 +51,7 @@ app.get('/articles/:id', (req, res) => {
 app.get('/form/new', (req, res) => {
 
     res.render('form.ejs');
+    // TODO: form require article ID
 });
 
 // Edit article form
