@@ -1,14 +1,15 @@
 <%- include('partials/header.ejs', {
     title: 'New Article',
-    buttons: ['back']
+    buttons: ['back', 'post'],
+    articleId: article.id || null
 }) %>
 
 <main>
-    <h1>Form Page</h1>
-
-    <p>
-        In this page, you can create or edit articles.
-    </p>
+    <form action="/articles" method="post">
+        <input type="text" name="title" placeholder="Title">
+        <textarea name="content" placeholder="Content"></textarea>
+        <button type="submit">Create</button>
+    </form>
 </main>
 
 <%- include('partials/footer.ejs') %>

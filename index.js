@@ -41,25 +41,27 @@ app.get('/articles/:id', (req, res) => {
     const article = getArticleById(req.params.id);
 
     if (!article) {
-        // Article not found -> 404 page
         res.render('404.ejs');
     } else {
-        // Article found, render it
         res.render('article.ejs', { article: article });
     }
 });
 
 // New article form
 app.get('/form/new', (req, res) => {
+
     res.render('form.ejs');
-    // TODO: create form
-    // TODO: collect form data from article object variable for editing
 });
 
 // Edit article form
 app.get('/form/:id', (req, res) => {
-    res.render('form.ejs');
-    // TODO: pass article id to form
+    const article = getArticleById(req.params.id);
+
+    if (!article) {
+        res.render('404.ejs');
+    } else {
+        res.render('form.ejs', { article: article });
+    }
 });
 
 // Create article
