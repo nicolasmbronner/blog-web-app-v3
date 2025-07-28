@@ -4,11 +4,20 @@
     articleId: article.id
 }) %>
 
+<!-- TODO: Need action with condition: mode == 'edit' or not (default = 'new') -->
+<!--
+BUTTON-FORM BINDING: External button (navbar in "header.ejs") targets the form
+via form="article-form" > id="article-form"
+ -->
 <main>
-    <form action="/articles" method="post">
+    <form id="article-form" action="<%= article.id ? '/articles/' + article.id : '/articles' %>" method="post">
+
+        <!-- 
+        DATA SUBMISSION: The "name" attribute determines keys in req.body
+        name="title" > req.body.title | name="content" > req.body.content
+        -->
         <input type="text" name="title" value="<%= article.title %>" placeholder="Title">
         <textarea name="content" placeholder="Content"><%= article.content %></textarea>
-        <button type="submit">Create</button>
     </form>
 </main>
 

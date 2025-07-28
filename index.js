@@ -13,10 +13,13 @@
  */
 
 
+
 // IMPORTS------------------------------------------------
 import express from 'express';
 import bodyParser from 'body-parser';
-import { resetBlog, getArticles, getArticleById } from './articles.js';
+import { resetBlog, getArticles, getArticlesLength, getArticleById, createArticle } from './articles.js';
+
+
 
 // CONFIG------------------------------------------------
 const app = express();
@@ -25,13 +28,14 @@ const port = 3000;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 resetBlog();
+
+
 
 // ROUTES------------------------------------------------
 // Index page
 app.get('/', (req, res) => {
-    const articles = getArticles();
+    const articles = getArticles(); // TODO: reverse list of articles
     res.render('index.ejs', { articlesIndex: articles });
     // TODO: nice list of articles
 });
@@ -66,18 +70,28 @@ app.get('/form/:id', (req, res) => {
     }
 });
 
-// Create article
+// Post New Article
 app.post('/articles', (req, res) => {
-    res.send('Article created');
-    // include the id of the new article
+    const newArticle = {
+        id: getArticlesLength() + 1,
+        title: req.body.title,
+        date: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
+        content: req.body.content,
+        locked: false
+    };
+    createArticle(newArticle);
+    res.redirect(`/articles/${newArticle.id}`);
 });
 
-// Update article
+// TODO: Update article
 app.post('/articles/:id', (req, res) => {
     res.send('Article updated');
+    console.log(req.body.title);
+    console.log(req.body.content);
+    console.log(req.params.id);
 });
 
-// Delete article > Check article status before deleting
+// TODO: Delete article > Check article status before deleting
 app.delete('/articles/:id', (req, res) => {
     // if article status is not locked, delete it
     res.send('Article deleted');
