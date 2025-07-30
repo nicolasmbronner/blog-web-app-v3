@@ -83,12 +83,17 @@ app.post('/articles', (req, res) => {
     res.redirect(`/articles/${newArticle.id}`);
 });
 
-// TODO: Update article
+// Update article
 app.post('/articles/:id', (req, res) => {
-    res.send('Article updated');
-    console.log(req.body.title);
-    console.log(req.body.content);
-    console.log(req.params.id);
+    const article = getArticleById(req.params.id);
+
+    if (!article) {
+        res.render('404.ejs');
+    } else {
+        article.title = req.body.title;
+        article.content = req.body.content;
+        res.redirect(`/articles/${article.id}`);
+    }
 });
 
 // TODO: Delete article > Check article status before deleting
