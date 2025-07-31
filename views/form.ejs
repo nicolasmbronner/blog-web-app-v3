@@ -1,14 +1,23 @@
 <%- include('partials/header.ejs', {
-    title: 'New Article',
-    buttons: ['back']
+    title: article.id ? ('Editing - ' + article.title) : 'New Article',
+    buttons: ['back', 'post'],
+    articleId: article.id
 }) %>
 
+<!--
+BUTTON-FORM BINDING: External button (navbar in "header.ejs") targets the form
+via form="article-form" > id="article-form"
+ -->
 <main>
-    <h1>Form Page</h1>
+    <form id="article-form" action="<%= article.id ? '/articles/' + article.id : '/articles' %>" method="post">
 
-    <p>
-        In this page, you can create or edit articles.
-    </p>
+        <!-- 
+        DATA SUBMISSION: The "name" attribute determines keys in req.body
+        name="title" > req.body.title | name="content" > req.body.content
+        -->
+        <input type="text" name="title" value="<%= article.title %>" placeholder="Title">
+        <textarea name="content" placeholder="Content"><%= article.content %></textarea>
+    </form>
 </main>
 
 <%- include('partials/footer.ejs') %>

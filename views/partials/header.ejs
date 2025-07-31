@@ -29,6 +29,10 @@
                 <button class="btn btn-delete" data-action="delete" data-id="<%= articleId %>">🗑️</button>
             <% } %>
 
+            <% if (navButtons.includes('post')) { %>
+                <button type="submit" form="article-form" class="btn btn-post">✅</button>
+            <% } %>
+
             <% if (navButtons.includes('new')) { %>
                 <a href="/form/new" class="btn btn-new">➕</a>
             <% } %>
