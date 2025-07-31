@@ -2,3 +2,7 @@ body {
     background-color: #141518;
     color: #ffffff;;
 }
+
+.article-body {
+    white-space: pre-wrap;
+}
