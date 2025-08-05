@@ -17,7 +17,13 @@
 // IMPORTS------------------------------------------------
 import express from 'express';
 import bodyParser from 'body-parser';
-import { resetBlog, getArticles, getArticlesLength, getArticleById, createArticle } from './articles.js';
+import { resetBlog,
+         getArticles,
+         getArticlesLength,
+         getArticleById,
+         createArticle,
+         deleteArticle
+        } from './articles.js';
 
 
 
@@ -96,10 +102,16 @@ app.post('/articles/:id', (req, res) => {
     }
 });
 
-// TODO: Delete article > Check article status before deleting
+// TODO: more complex delete logic for index page (no redirect)
 app.delete('/articles/:id', (req, res) => {
-    // if article status is not locked, delete it
-    res.send('Article deleted');
+    const article = getArticleById(req.params.id);
+
+    if (!article) {
+        res.render('404.ejs');
+    } else {
+        deleteArticle(req.params.id);
+        res.redirect('/');
+    }
 })
 
 
