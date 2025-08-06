@@ -53,7 +53,6 @@ export function deleteArticle(id) {
         undoBuffer.push(deletedArticle);
         articles = articles.filter(article => article.id !== parseInt(id));
     }
-    console.log('Article deleted!');
 }
 
 export function restoreLastDeleted() {

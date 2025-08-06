@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const articleId = this.getAttribute('data-id');
 
-            // DELETE request to /articles/:id
+            // DELETE request to /articles/:id (`fetch()` sends a message to the server)
             fetch(`/articles/${articleId}`, {
                 method: 'DELETE'
             })
