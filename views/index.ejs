@@ -15,7 +15,10 @@
                         <a href="/articles/<%= article.id %>"><%= article.title %></a>
                         <div class="article-actions">
                             <a href="/form/<%= article.id %>" class="btn btn-edit">✏️</a>
-                            <button class="btn btn-delete" data-action="delete" data-id="<%= article.id %>">🗑️</button>
+
+                            <!-- Button with a different data-action from the button on the navbar.
+                            It deletes the article from the index via DOM without page reload -->
+                            <button class="btn btn-delete" data-action="delete-from-index" data-id="<%= article.id %>">🗑️</button>
                         </div>
                     </div>
                 </li>
