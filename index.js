@@ -65,7 +65,9 @@ import { resetBlog,
          getArticlesLength,
          getArticleById,
          createArticle,
-         deleteArticle
+         deleteArticle,
+         getNextId,
+         incrementNextId
         } from './articles.js';
 
 
@@ -122,13 +124,14 @@ app.get('/form/:id', (req, res) => {
 // Post New Article
 app.post('/articles', (req, res) => {
     const newArticle = {
-        id: getArticlesLength() + 1,
+        id: getNextId(),
         title: req.body.title,
         date: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
         content: req.body.content,
         locked: false
     };
     createArticle(newArticle);
+    incrementNextId();
     res.redirect(`/articles/${newArticle.id}`);
 });
 

@@ -24,6 +24,7 @@ const staticArticles = [
 
 let articles = [ ];
 let undoBuffer = [ ];
+let nextId = 1; // Will be recalculated at reset
 
 export function getArticles() {
     return articles;
@@ -35,6 +36,7 @@ export function getArticlesLength() {
 
 export function resetBlog() {
     articles = [...staticArticles];
+    nextId = Math.max(...articles.map(a => a.id)) + 1;
     console.log('Blog reset!');
 }
 
@@ -53,6 +55,14 @@ export function deleteArticle(id) {
         undoBuffer.push(deletedArticle);
         articles = articles.filter(article => article.id !== parseInt(id));
     }
+}
+
+export function getNextId() {
+    return nextId;
+}
+
+export function incrementNextId() {
+    nextId++;
 }
 
 export function restoreLastDeleted() {
