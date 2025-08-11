@@ -23,6 +23,7 @@ const staticArticles = [
 ]
 
 let articles = [ ];
+let undoBuffer = [ ];
 
 export function getArticles() {
     return articles;
@@ -46,5 +47,18 @@ export function createArticle(newArticle) {
 }
 
 export function deleteArticle(id) {
-    
+    const deletedArticle = articles.find(article => article.id === parseInt(id));
+    if (!deletedArticle.locked) {
+        undoBuffer = [];
+        undoBuffer.push(deletedArticle);
+        articles = articles.filter(article => article.id !== parseInt(id));
+    }
+}
+
+export function restoreLastDeleted() {
+    // TODO: recover from undoBuffer
+}
+
+export function getUndoInfo() {
+    // TODO: get info to display in toast
 }

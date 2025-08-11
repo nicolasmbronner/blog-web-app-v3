@@ -1,5 +1,5 @@
 /**
- * ROUTES--------------------------------------------
+ * ROUTES--------------------------------------------------------------
  * 
  * GET /                      -> index page
  * GET /articles/:id          -> read article
@@ -10,14 +10,63 @@
  * POST /articles/:id         -> update article
  * 
  * DELETE /articles/:id       -> delete article if status is not locked
- */
+ *
+ * 
+ * 
+ * COMPLETE TIMELINE: ARTICLE DELETION FROM INDEX PAGE------------------
+ * ┌─ 1. USER CLICKS DELETE BUTTON 🗑️ (index.ejs)
+ * │   └─ <button data-action="delete-from-index" data-id="123">🗑️</button>
+ * │
+ * ┌─ 2. JAVASCRIPT DETECTS THE CLICK (main.js)
+ * │   ├─ Reads data-action = "delete-from-index"
+ * │   ├─ Reads data-id = "123" 
+ * │   └─ Decides: "This is from index, no redirect needed!"
+ * │
+ * ┌─ 3. FETCH TO SERVER (main.js)
+ * │   ├─ URL: http://localhost:3000/articles/123?from=index
+ * │   ├─ Method: DELETE
+ * │   └─ Message to server: "Delete article 123, I'm from index page"
+ * │
+ * ┌─ 4. SERVER RECEIVES REQUEST (index.js)
+ * │   ├─ Route: app.delete('/articles/:id')
+ * │   ├─ req.params.id = "123"
+ * │   ├─ req.query.from = "index"
+ * │   └─ Decides: "OK, request from index page"
+ * │
+ * ┌─ 5. BUSINESS LOGIC (articles.js)
+ * │   ├─ getArticleById(123) → finds the article
+ * │   ├─ deleteArticle(123) → moves to undoBuffer
+ * │   └─ Article removed from articles[] array
+ * │
+ * ┌─ 6. SERVER RESPONDS DIFFERENTLY (index.js)
+ * │   ├─ Condition: if (req.query.from === 'index')
+ * │   ├─ Response: res.json({ success: true })
+ * │   └─ No redirect! (unlike article page)
+ * │
+ * ┌─ 7. FETCH RECEIVES RESPONSE (main.js)
+ * │   ├─ response.json() converts JSON text to JS object
+ * │   ├─ data = { success: true }
+ * │   └─ Condition: if (data.success) → TRUE
+ * │
+ * ┌─ 8. DOM MANIPULATION (main.js)
+ * │   ├─ document.querySelector('[data-id="123"]')
+ * │   ├─ .closest('.article-item') → finds the <li>
+ * │   ├─ .remove() → removes visually
+ * │   └─ RESULT: Article disappears without page reload!
+*/
 
 
 
 // IMPORTS------------------------------------------------
 import express from 'express';
 import bodyParser from 'body-parser';
-import { resetBlog, getArticles, getArticlesLength, getArticleById, createArticle } from './articles.js';
+import { resetBlog,
+         getArticles,
+         getArticlesLength,
+         getArticleById,
+         createArticle,
+         deleteArticle
+        } from './articles.js';
 
 
 
@@ -96,12 +145,24 @@ app.post('/articles/:id', (req, res) => {
     }
 });
 
-// TODO: Delete article > Check article status before deleting
+// Delete article
 app.delete('/articles/:id', (req, res) => {
-    // if article status is not locked, delete it
-    res.send('Article deleted');
-})
+    const article = getArticleById(req.params.id);
 
+    if (!article) {
+        res.render('404.ejs');
+    } else {
+        deleteArticle(req.params.id);
+
+        // Respond differently based on request origin
+        if (req.query.from === 'index') {
+            // INDEX CASE: Send JSON for client-side DOM manipulation
+            res.json({ success: true });
+        } else {
+            res.redirect('/');
+        }
+    }
+})
 
 // Start server
 app.listen(port, () => {
