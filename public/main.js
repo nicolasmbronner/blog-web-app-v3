@@ -50,3 +50,8 @@ function dateFormatter(date) {
 function showToast(message) {
     
 }
+
+// Automatic Ping every 5 seconds
+setInterval(() => {
+    fetch('/api/ping');
+}, 5000);

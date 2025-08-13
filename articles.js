@@ -35,7 +35,8 @@ export function getArticlesLength() {
 }
 
 export function resetBlog() {
-    articles = [...staticArticles];
+    articles = staticArticles.map(article => ({...article})); // deep copy
+
     nextId = Math.max(...articles.map(a => a.id)) + 1;
     console.log('Blog reset!');
 }
