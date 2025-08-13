@@ -76,7 +76,8 @@ import { resetBlog,
 const app = express();
 const port = 3000;
 
-let lastActivity = Date.now(); // When was the last time the server received a request
+let lastPing = Date.now(); // used to check if any user is connected
+let serverIsAlive = false;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -88,7 +89,7 @@ resetBlog();
 // ROUTES------------------------------------------------
 // Index page
 app.get('/', (req, res) => {
-    lastActivity = Date.now();
+    markUserActive();
     const articles = getArticles(); // TODO: reverse list of articles
     res.render('index.ejs', { articlesIndex: articles });
     // TODO: nice list of articles
@@ -96,7 +97,7 @@ app.get('/', (req, res) => {
 
 // Read article
 app.get('/articles/:id', (req, res) => {
-    lastActivity = Date.now();
+    markUserActive();
     const article = getArticleById(req.params.id);
 
     if (!article) {
@@ -108,7 +109,7 @@ app.get('/articles/:id', (req, res) => {
 
 // New article form
 app.get('/form/new', (req, res) => {
-    lastActivity = Date.now();
+    markUserActive();
 
     res.render('form.ejs', {
         article: { id: null, title: '', content: '' }
@@ -117,7 +118,7 @@ app.get('/form/new', (req, res) => {
 
 // Edit article form
 app.get('/form/:id', (req, res) => {
-    lastActivity = Date.now();
+    markUserActive();
     const article = getArticleById(req.params.id);
 
     if (!article) {
@@ -129,7 +130,7 @@ app.get('/form/:id', (req, res) => {
 
 // Post New Article
 app.post('/articles', (req, res) => {
-    lastActivity = Date.now();
+    markUserActive();
     const newArticle = {
         id: getNextId(),
         title: req.body.title,
@@ -144,7 +145,7 @@ app.post('/articles', (req, res) => {
 
 // Update article
 app.post('/articles/:id', (req, res) => {
-    lastActivity = Date.now();
+    markUserActive();
     const article = getArticleById(req.params.id);
 
     if (!article) {
@@ -158,7 +159,7 @@ app.post('/articles/:id', (req, res) => {
 
 // Delete article
 app.delete('/articles/:id', (req, res) => {
-    lastActivity = Date.now();
+    markUserActive();
     const article = getArticleById(req.params.id);
 
     if (!article) {
@@ -174,24 +175,35 @@ app.delete('/articles/:id', (req, res) => {
             res.redirect('/');
         }
     }
-})
+});
+
+// Ping server to check if users are connected
+app.get('/api/ping', (req, res) => {
+    markUserActive();
+    res.json({ status: 'alive' });
+});
 
 // Reset timer
 // TODO: let users know that the blog was reset through a toast
 // TODO: reset test through client ping, not through activity
 setInterval(() => {
     const now = Date.now();
-    const timeSinceLastActivity = now - lastActivity;
+    const timeSinceLastActivity = now - lastPing;
 
-    if (timeSinceLastActivity > 20000) {
-        console.log(`😴 Nobody connected since 20 seconds - Blog reset !`);
+    if (timeSinceLastActivity > 20000 && serverIsAlive) {
+        console.log(`😴 Nobody connected since 20 seconds...`);
         resetBlog();
-        lastActivity = Date.now();
+        serverIsAlive = false;
+        lastPing = Date.now();
     }
 }, 5000);
 
 // Start server
 app.listen(port, () => {
-    lastActivity = Date.now();
     console.log(`Server running on port ${port}`);
-})
+});
+
+function markUserActive() {
+    lastPing = Date.now();
+    serverIsAlive = true;
+}
