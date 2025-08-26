@@ -43,15 +43,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }); // End of deleteButtons
 }); // End of DOMContentLoaded
 
-function dateFormatter(date) {
-
-}
-
-function showToast(message) {
-    
-}
+// function dateFormatter(date) { // TODO
+// }
 
 // Automatic Ping every 5 seconds
 setInterval(() => {
     fetch('/api/ping');
 }, 5000);
+
+// Toast Fonction
+function showToast(message, actionText, actionCallback) {
+    const container = document.getElementById('toast-container');
+
+    // Delete all existing toasts (no stacking)
+    if (container) container.innerHTML = '';
+
+    // Create new toast
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = message;
+
+    // Add action link if provided
+    if (actionText && actionCallback && typeof actionCallback === 'function') {
+        const actionLink = document.createElement('a');
+        actionLink.href = '#';
+        actionLink.textContent = actionText;
+        actionLink.onclick = (e) => {
+            e.preventDefault();
+            actionCallback();
+            hideToast(toast);
+        };
+        toast.appendChild(actionLink);
+    }
+
+    if (container) {
+        container.appendChild(toast);
+
+        // Appearing animation
+        setTimeout(() => toast.classList.add('show'), 10);
+
+        // Auto-disappear after 8 seconds
+        setTimeout(() => hideToast(toast), 8000);
+    }
+}
+
+function hideToast(toast) {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 250); // Remove after animation
+}
