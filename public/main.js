@@ -1,6 +1,13 @@
 // Gestion des articles (front-end), comme "dateFormater()".
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if a toast need to be displayed
+    const toastMessage = sessionStorage.getItem('showToast');
+    if (toastMessage) {
+        sessionStorage.removeItem('showToast');
+        showToast(toastMessage);
+    }
+
     // Find delete buttons
     const deleteButtons = document.querySelectorAll('[data-action="delete"], [data-action="delete-from-index"]');
 
@@ -23,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (data.success) {
                         // Remove from the DOM, no redirection
                         document.querySelector(`[data-id="${articleId}"]`)?.closest('.article-item')?.remove();
-                        // TODO: showToast with success message and link to undo
+                        showToast("Article deleted.");
                     } else {
                         console.error('Error deleting article:', data.message);
                         // TODO: showToast(data.message)
@@ -31,13 +38,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
             } else {
-                fetch(`/articles/${articleId}`, {
-                    method: 'DELETE'
-                })
-                .then(() => {
-                    // Redirect to home page
-                    window.location.href = '/';
-                }); // End of fetch
+                // ARTICLE VIEW CASE: Also use JSON response instead of server redirect
+                fetch(`/articles/${articleId}?from=article`, {method: 'DELETE'})
+                
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Store info for after redirection
+                        sessionStorage.setItem('showToast', 'Article deleted.');
+                        // Client-side redirect with toast
+                        window.location.href = '/';
+                    } else {
+                        console.error('Error deleting article:', data.message);
+                    }
+                });
             } // End of else
         }); // End of click event (eventListener)
     }); // End of deleteButtons

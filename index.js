@@ -171,6 +171,8 @@ app.delete('/articles/:id', (req, res) => {
         if (req.query.from === 'index') {
             // INDEX CASE: Send JSON for client-side DOM manipulation
             res.json({ success: true });
+        } else if (req.query.from === 'article') {
+            res.json({success: true});
         } else {
             res.redirect('/');
         }
@@ -184,8 +186,6 @@ app.get('/api/ping', (req, res) => {
 });
 
 // Reset timer
-// TODO: let users know that the blog was reset through a toast
-// TODO: reset test through client ping, not through activity
 setInterval(() => {
     const now = Date.now();
     const timeSinceLastActivity = now - lastPing;
